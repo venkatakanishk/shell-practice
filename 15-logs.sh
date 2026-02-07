@@ -21,5 +21,8 @@ VALIDATE (){
 dnf install nodejs -y &>> $LOG_FILE
 VALIDATE $? "installing nodejs"
 
-dnf install mytehdf -y &>> $LOG_FILE
+dnf install mysql &>> $LOG_FILE
 VALIDATE $? "installing mysql"
+
+dnf install java -y &>> $LOG_FILE
+VALIDATE $? "installing java"
