@@ -6,20 +6,17 @@ if [ $USERID -ne 0 ]; then
     echo "please run th4e script with root user access"
     exit 1
 fi
+VALIDATE (){
+    if [ $1 -ne 0 ]; then
+        echo "$2 is failure"
+        exit1
+    else 
+        echo "$2 is success"
+    fi
+}
 
-echo "installing nginx"
-dnf install nginx -y
-
-if [ $? -ne 0 ]; then
-    echo "Nginx installation is failure"
-else
-    echo "Nginx installation is success"
-fi
+dnf install nodejs -y
+validate $? "installing nodejs"
 
 dnf install mysql -y
-
-if [ $? -ne 0 ]; then
-    echo "Mysql installation is failure"
-else
-    echo "Mysql installation is success"
-fi
+validate $? "installing mysql"
