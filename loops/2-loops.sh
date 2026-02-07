@@ -8,6 +8,7 @@ if [ $USERID -ne 0 ]; then
     exit 1
 fi
 mkdir -p $LOG_FOLDER
+
 VALIDATE (){
     if [ $1 -ne 0 ]; then
         echo "$2 is failure" | tee -a $LOG_FILE
@@ -18,7 +19,7 @@ VALIDATE (){
 }
 
 for package in $@
-do 
-  dnf install $package -y &>> $LOG_FILE
-  VALIDATE $? "$package installation"
+do
+    dnf install $package -y &>> $LOG_FILE
+    VALIDATE $? "$package installation"                               
 done
