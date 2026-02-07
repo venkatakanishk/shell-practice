@@ -16,7 +16,7 @@ VALIDATE (){
 }
 
 dnf install nodejs -y
-validate $? "installing nodejs"
+VALIDATE $? "installing nodejs"
 
 dnf install mysql -y
-validate $? "installing mysql"
+VALIDATE $? "installing mysql"
