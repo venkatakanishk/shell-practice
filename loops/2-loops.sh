@@ -17,7 +17,7 @@ VALIDATE (){
     fi
 }
 
-for package in $@ #selects from the command line i.e., nginx mysql python3-devel
+for package in $@
 do 
   dnf install $package -y &>> $LOG_FILE
   validate $? "installing $package"
