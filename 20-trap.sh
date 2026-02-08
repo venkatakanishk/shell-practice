@@ -1,0 +1,28 @@
+#!/bin/bash
+
+set -e #ERR
+trap 'echo "There is an error in the Line: $LINENO, COMMAND: $BASH_COMMAND"' ERR
+USERID=$(id -u)
+LOG_FOLDER="/var/log/shell-script"
+LOG_FILE="/var/log/shell-script/$0.log"
+R="\e[31m"
+G="\e[32m"
+Y="\e[33m"
+N="\e[0m"
+
+if [ $USERID -ne 0 ]; then
+    echo -e "$R please run the script with root user access $N" | tee -a $LOG_FILE
+    exit 1
+fi
+mkdir -p $LOG_FOLDER
+
+for package in $@
+do
+    dnf list installed $package  &>> $LOG_FILE
+    if [ $? -ne 0 ]; then
+        echo -e "$package $R not installed, installing now $N"
+        dnf install $package -y &>> $LOG_FILE 
+    else
+        echo -e "$G $package alreayd installed, $Y skipping installation $N"
+    fi             
+done
